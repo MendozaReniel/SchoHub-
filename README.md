@@ -101,28 +101,6 @@ already running, a second launch simply fails with a "port 8080 in use" line in
 `logs\autostart.log`. To start it again without logging out, run
 `wscript start-schohub-hidden.vbs`. Remove the Startup shortcut to turn the auto-start off.
 
-## Web pages
-
-The frontend is static HTML, one CSS file and ES modules, served by the same Spring Boot
-app from `src/main/resources/static`. There is no npm build step and no CORS setup — the
-pages call the API on their own origin.
-
-| Page | URL | What it does |
-| --- | --- | --- |
-| Landing | `/index.html` | Hero, how it works, six featured programs (live from the API), SDGs |
-| Sign up | `/signup.html` | Creates the account and stores the token |
-| Log in | `/login.html` | Returns to the dashboard, or to profile setup if the profile is empty |
-| Profile | `/profile.html` | Step 1 base identity (city fixed to Batangas City, barangay from the 105-barangay list), step 2 Path A (new application) or Path B (renewal) |
-| Dashboard | `/dashboard.html` | Matched programs with per-requirement explanations, or renewal status with its document checklist |
-| Program detail | `/scholarship.html?code=EBD` | Public requirements, documents and provider link |
-
-`js/api.js` holds the fetch wrapper (attaches `Authorization: Bearer <token>`), the local
-session helpers and small render utilities. Each page has its own module under `js/`.
-Pages that require an account redirect to `/login.html` when the token is missing or expired.
-
-A demo student is already in the database so the UI can be explored immediately:
-`maria@example.com` / `Password123` (BatStateU BS IT, GWA 1.75, Batangas City).
-Delete `data/schohub.mv.db` while the server is stopped to start from an empty database.
 
 ## Authentication
 
